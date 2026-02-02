@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Will You Be My Valentine?</title>
+  <title>Сайн уу? Хулаaaн~</title>
   <style>
     * {
       box-sizing: border-box;
@@ -98,6 +98,34 @@
       animation: float 2s infinite ease-in-out;
     }
 
+    .loading {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #fff, #ffe6eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9998;
+      animation: pop 0.4s ease forwards;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ffd1dc;
+      border-top-color: #ff4081;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     @keyframes float {
 
       0%,
@@ -142,6 +170,7 @@
 
 <body>
   <audio id="yaySound" src="yay-6120.mp3"></audio>
+  <audio id="omgSfx" src="https://www.myinstants.com/media/sounds/defy-gravity-x-god-is-kanye.mp3"></audio>
   <div id="app">
     <h1>Хамт Валентин тэмдэглий??? 💘</h1>
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0V9RxgxkGeER5RlqFfDdDxYV7kFxZUFm6eg&s"
@@ -157,6 +186,24 @@
     const app = document.getElementById('app');
 
     let yesScale = 1;
+
+    function showLoading() {
+      const loading = document.createElement('div');
+      loading.className = 'loading';
+      loading.id = 'loadingScreen';
+      loading.innerHTML = `
+    <div class="loader"></div>
+    <p style="font-size:1.2rem; color:#555;">
+      Бяцхан сюрприз бэлдэж байна… 😺💝
+    </p>
+  `;
+      document.body.appendChild(loading);
+    }
+
+    function hideLoading() {
+      const el = document.getElementById('loadingScreen');
+      if (el) el.remove();
+    }
 
     function randomPosition() {
       const padding = 80;
@@ -183,8 +230,14 @@
     });
 
     yesBtn.addEventListener('click', () => {
-      document.getElementById('yaySound').play();
+      const yay = document.getElementById('yaySound');
+      const omg = document.getElementById('omgSfx');
 
+      yay.volume = 1;
+      omg.volume = 0.3;
+
+      yay.play();
+      omg.play();
       const celebration = document.createElement('div');
       celebration.className = 'celebrate';
       celebration.innerHTML = `
